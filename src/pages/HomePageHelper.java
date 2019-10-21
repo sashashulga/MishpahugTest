@@ -12,7 +12,6 @@ import java.util.List;
 
 public class HomePageHelper extends PageBase {
 
-
     public HomePageHelper(WebDriver driver) {
         super(driver);
     }
