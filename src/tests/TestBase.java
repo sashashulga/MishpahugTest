@@ -20,6 +20,7 @@ public class TestBase {
     public void initWebDriver() throws InterruptedException {
         driver = new ChromeDriver();
         driver.get("https://mishpahug.co.il/");
+        driver.manage().window().fullscreen();
         waitUntilElementIsClickable(By.id("closedIntro"),30);
         driver.findElement(By.id("closedIntro")).click();
         //Thread.sleep(5000);
