@@ -98,4 +98,5 @@ public class ProfilePageHelper extends PageBase {
                 .getText().equals(profileFoodPreference)) counter++;
         Assert.assertEquals(counter, 3);
     }
+
 }

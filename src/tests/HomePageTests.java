@@ -36,6 +36,12 @@ public class HomePageTests extends TestBase {
         Assert.assertTrue(homePage.allEventsBelongToHolidayShabbat());
     }
 
+    @Test
+    public void singleFilterFoodKosher()  {
+        homePage.filterFoodsByFoodKosher();
+        Assert.assertTrue(homePage.allFoodsBelongToFoodKosher());
+    }
+
 
 
 }

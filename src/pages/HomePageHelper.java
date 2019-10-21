@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import java.util.List;
 
@@ -28,6 +29,41 @@ public class HomePageHelper extends PageBase {
         WebElement listEvent
                 = driver.findElement(By.id("idtitletypesearchevents"));
         return listEvent.getText().equals("List events");
+    }
+
+    public void filterFoodsByFoodKosher(){
+        waitUntilElementIsVisible(By.name("selectfood"),30);
+        waitUntilAllElementsPresent(By.xpath("//select[@name = 'selectfood']/option"),30);
+        WebElement foodsFilter = driver.findElement(By.name("selectfood"));
+        Select selector;
+        try {
+            selector = new Select(foodsFilter);
+            selector.selectByValue("Kosher");
+        }catch (Exception e){
+            try {
+                Thread.sleep(20000);
+                System.out.println("Exception: " + e);
+                selector = new Select(driver.findElement(By.name("selectfood")));
+                selector.selectByValue("Kosher");
+            } catch (InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
+        waitUntilElementIsClickable(By
+                .xpath("//div[@id='idbtnclearfilter']"),20);
+        waitUntilElementIsPresent(By
+                .xpath("//option[@selected][@value = 'Kosher']"),20);
+        waitUntilAllElementsVisible(driver.findElements(By
+                .xpath("//div[@class = 'itemEventInsert']")),40);
+    }
+
+    public Boolean allFoodsBelongToFoodKosher() {
+        List<WebElement> listFoods = driver.findElements(By.xpath("//div[@class = 'preferenceItemEvents']"));
+        int counter = 0;
+        for (int i=0; i < listFoods.size(); i++){
+            if (listFoods.get(i).getText().equals("Kosher")) counter++;
+        }
+        return counter == listFoods.size();
     }
 
 
